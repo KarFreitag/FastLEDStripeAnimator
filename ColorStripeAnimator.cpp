@@ -29,7 +29,6 @@ void ColorStripeAnimator::animateLeds( CRGB* leds) {
       memcpy( &( leds[ firstPointPos]), newVals, numLedsTillEnd);
       memcpy( &( leds[ 0]), &( newVals[ numLedsTillEnd]), firstPointPos);
     }
-
   }
 }
 

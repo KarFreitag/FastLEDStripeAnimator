@@ -2,6 +2,7 @@
 #include <FastLED.h>
 
 #include "ColorStripeAnimator.h"
+#include "ColorTransitionConst.h"
 
 const uint8_t NUM_LEDS = 100;
 const uint8_t BRIGHTNESS = 64; //max. 255
@@ -25,6 +26,10 @@ void setup() {
   }
 
   FastLED.show();
+
+  ColorAnchorPoint newAnchorPoint( 0, CRGB::Amethyst);
+  ColorTransitionConst newTransition( newAnchorPoint);
+  animator.addColorTransition( newTransition);
 }
 
 void loop() {
