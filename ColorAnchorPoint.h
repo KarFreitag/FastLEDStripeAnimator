@@ -8,8 +8,7 @@
 class ColorAnchorPoint {
   public:
     ColorAnchorPoint( uint8_t position, CRGB color);
-  
-  private:
+    
     uint8_t position;
     CRGB color;
 };

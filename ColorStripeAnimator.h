@@ -10,13 +10,14 @@
 
 class ColorStripeAnimator {
   public:
-    ColorStripeAnimator();
+    ColorStripeAnimator( uint8_t numLeds);
     ~ColorStripeAnimator();
 
-    void animateLeds( CRGB* leds, uint8_t numLeds);
+    void animateLeds( CRGB* leds);
     void addColorTransition( ColorTransition& transition);
 
   private:
+    uint8_t numLeds;
     std::set< ColorTransition *> transitions;
 };
 
