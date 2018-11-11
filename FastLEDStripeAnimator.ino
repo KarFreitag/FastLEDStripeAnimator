@@ -12,9 +12,12 @@ const ColorStripeAnimator animator( NUM_LEDS);
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin( 9600 );
+  Serial.println( "setup()");
 
   // set chipset type, color order of LEDs and number of LEDs on stripe
   //FastLED.addLeds<led_type, led_color_order>(leds, num_leds);
+  leds = new CRGB[ NUM_LEDS];
   FastLED.addLeds<APA102, BGR>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
 
   // set global brightness
@@ -27,13 +30,18 @@ void setup() {
 
   FastLED.show();
 
-  ColorAnchorPoint newAnchorPoint( 0, CRGB::Amethyst);
-  ColorTransitionConst newTransition( newAnchorPoint);
-  animator.addColorTransition( newTransition);
+  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 0, CRGB::Blue)));
+  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 25, CRGB::Red)));
+  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 50, CRGB::Green)));
+  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 75, CRGB::Yellow)));
+
+  Serial.println( "setup() - done");
 }
 
 void loop() {
+  Serial.println( "loop()");
   // put your main code here, to run repeatedly:
   animator.animateLeds( leds);
   FastLED.show();
+  delay( 10000);
 }

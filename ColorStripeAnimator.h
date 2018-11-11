@@ -14,7 +14,7 @@ class ColorStripeAnimator {
     ~ColorStripeAnimator();
 
     void animateLeds( CRGB* leds);
-    void addColorTransition( ColorTransition& transition);
+    void addColorTransition( ColorTransition * transition);
 
   private:
     uint8_t numLeds;
