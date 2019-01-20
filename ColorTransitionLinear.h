@@ -8,7 +8,6 @@ class ColorTransitionLinear : public ColorTransition {
     ColorTransitionLinear( ColorAnchorPoint startPoint);
     ColorTransition * makeCopy() override;
     void updateTransition( ColorAnchorPoint& otherPoint, CRGB * firstColorAnchorPoint, uint8_t numSteps) override;
-    //CRGB colorAtPosition( ColorAnchorPoint& otherPoint, uint8_t position) override;
 };
 
 

@@ -4,9 +4,10 @@
 #include "ColorStripeAnimator.h"
 #include "ColorTransitionConst.h"
 #include "ColorTransitionLinear.h"
+#include "ColorAnimationLinear.h"
 
 const uint8_t NUM_LEDS = 100;
-const uint8_t BRIGHTNESS = 64; //max. 255
+const uint8_t BRIGHTNESS = 100; //max. 255
 CRGB * leds;
 
 const ColorStripeAnimator animator( NUM_LEDS);
@@ -19,7 +20,6 @@ void setup() {
   Serial.println( "setup()");
 
   // set chipset type, color order of LEDs and number of LEDs on stripe
-  //FastLED.addLeds<led_type, led_color_order>(leds, num_leds);
   leds = new CRGB[ NUM_LEDS];
   FastLED.addLeds<APA102, BGR>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
 
@@ -35,27 +35,27 @@ void setup() {
 
   FastLED.show();
 
-  //  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 0, CRGB::Blue)));
-  //  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 25, CRGB::Red)));
-  //  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 50, CRGB::Green)));
-  //  animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 75, CRGB::Yellow)));
+//      animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 0, CRGB::Blue)));
+//      animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 25, CRGB::Red)));
+//      animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 50, CRGB::Green)));
+//      animator.addColorTransition( &ColorTransitionConst( ColorAnchorPoint( 75, CRGB::Yellow)));
 
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 0, CRGB(50,0,0))));
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 16, CRGB::Black)));
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 33, CRGB(0,50,0))));
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 49, CRGB::Black)));
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 66, CRGB(0,0,50))));
-  //  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 83, CRGB::Black)));
+  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 25, CRGB::Blue)));
 
-  animator.addColorTransition( &ColorTransitionLinear( ColorAnchorPoint( 50, CRGB::Red)));
+  std::vector< ColorAnchorPoint *> anchors = animator.getAnchorPoints();
+
+  animator.addColorAnimation( new ColorAnimationLinear( anchors[0], ColorAnchorPoint( anchors[0]->position, CRGB::Black), 0000, 1000));
+  animator.addColorAnimation( new ColorAnimationLinear( anchors[0], ColorAnchorPoint( anchors[0]->position, CRGB::Red), 1000, 2000));
+  animator.addColorAnimation( new ColorAnimationLinear( anchors[0], ColorAnchorPoint( anchors[0]->position, CRGB::Black), 2000, 3000));
+  animator.addColorAnimation( new ColorAnimationLinear( anchors[0], ColorAnchorPoint( anchors[0]->position, CRGB::Blue), 3000, 4000));
 
   Serial.println( "setup() - done");
 }
 
 void loop() {
-  Serial.println( "loop()");
+  //Serial.println( "loop()");
   // put your main code here, to run repeatedly:
-  animator.animateLeds( leds);
+  animator.animateLeds( leds, millis());
   FastLED.show();
-  delay( 10000);
+  //delay(500);
 }

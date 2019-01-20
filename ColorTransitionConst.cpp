@@ -13,7 +13,3 @@ void ColorTransitionConst::updateTransition( ColorAnchorPoint& otherPoint, CRGB 
   }
 }
 
-//CRGB ColorTransitionConst::colorAtPosition( ColorAnchorPoint& otherPoint, uint8_t position) {
-//  return startPoint.color;
-//}
-

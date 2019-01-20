@@ -9,7 +9,25 @@ ColorStripeAnimator::~ColorStripeAnimator() {
   }
 }
 
-void ColorStripeAnimator::animateLeds( CRGB* leds) {
+void ColorStripeAnimator::animateLeds( CRGB* leds, unsigned long runtime) {
+
+  // reset animations if new loop started
+  unsigned long newAnimTime = runtime % animDuration;
+
+  if (newAnimTime < animTime) {
+    for (ColorAnimation* animation : animations) {
+      animation->reset();
+    }
+  }
+
+  // update anchor points by animations
+  animTime = newAnimTime;
+  
+  for (ColorAnimation* animation : animations) {
+    animation->update( animTime);
+  }
+
+  // update stripe by transitions
   auto trans = transitions.begin();
   auto nextTrans = ++transitions.begin();
 
@@ -31,7 +49,7 @@ void ColorStripeAnimator::animateLeds( CRGB* leds) {
     CRGB * newVals = new CRGB[ numSteps];
     (*trans)->updateTransition( (*nextTrans)->startPoint, newVals, numSteps);
 
-    Serial.println( "transition " + String( i));
+    //Serial.println( "transition " + String( i));
 
     for (uint8_t j = 0; j < numSteps; ++j) {
       uint8_t writePos = ( firstPointPos + j) % numLeds;
@@ -59,6 +77,23 @@ void ColorStripeAnimator::addColorTransition( ColorTransition * transition) {
   }
 
   transitions.insert( transition->makeCopy());
+}
+
+void ColorStripeAnimator::addColorAnimation( ColorAnimation * animation) {
+  animations.push_back( animation);
+  animDuration = max( animation->endTime, animDuration);
+}
+
+std::vector< ColorAnchorPoint *> ColorStripeAnimator::getAnchorPoints() {
+  std::vector< ColorAnchorPoint *> anchorPoints( transitions.size());
+
+  auto it = transitions.begin();
+  for ( uint8_t i = 0; i < transitions.size(); ++i) {
+    anchorPoints[i] = &( (*it)->startPoint);
+    ++it;
+  }
+  
+  return anchorPoints;
 }
 
 
