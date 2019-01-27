@@ -2,6 +2,7 @@
 #ifndef COLORSTRIPEANIMATOR_H
 #define COLORSTRIPEANIMATOR_H
 
+#include <ArduinoSTL.h>
 #include <set>
 #include <FastLED.h>
 
@@ -26,13 +27,14 @@ class ColorStripeAnimator {
     void addColorAnimation( ColorAnimation * animation);
     std::vector< ColorAnchorPoint *> getAnchorPoints();
 
-  private:
+    void reset();
+
+  protected:
     uint8_t numLeds;
     unsigned long animDuration = 1;
     unsigned long animTime;
     std::set< ColorTransition *, ColorTransitionPtrCompare> transitions;
     std::vector< ColorAnimation *> animations;
-    
 
 };
 
