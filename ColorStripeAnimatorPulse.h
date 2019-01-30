@@ -12,7 +12,11 @@ class ColorStripeAnimatorPulse : public ColorStripeAnimator {
     ~ColorStripeAnimatorPulse();
 
     void setPulseColor( CRGB color);
+    CRGB getPulseColor();
+    
     void setPulseDuration( unsigned long milliSeconds);
+    unsigned long getPulseDuration();
+    
     
   protected:
     CRGB pulseColor = CRGB::White;

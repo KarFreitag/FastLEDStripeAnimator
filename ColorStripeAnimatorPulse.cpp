@@ -18,10 +18,18 @@ void ColorStripeAnimatorPulse::setPulseColor( CRGB color) {
   setupAnimations();
 }
 
+CRGB ColorStripeAnimatorPulse::getPulseColor() {
+  return pulseColor;
+}
+
 void ColorStripeAnimatorPulse::setPulseDuration( unsigned long milliSeconds) {
   pulseDuration = milliSeconds;
   reset();
   setupAnimations();
+}
+
+unsigned long ColorStripeAnimatorPulse::getPulseDuration() {
+  return pulseDuration;
 }
 
 void ColorStripeAnimatorPulse::setupAnimations() {
