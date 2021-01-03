@@ -23,8 +23,8 @@ void setup() {
 
   // set chipset type, color order of LEDs and number of LEDs on stripe
   leds = new CRGB[ NUM_LEDS];
-  const int clockPin = 4;
-  const int dataPin = 3;
+  const int clockPin = 13;
+   const int dataPin = 11;
   FastLED.addLeds<APA102, dataPin, clockPin, BGR>( leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
 
   // set global brightness
