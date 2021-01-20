@@ -7,10 +7,11 @@
 class ColorTransition
 {
 public:
-  ColorTransition(ColorAnchorPoint startPoint);
+  ColorTransition(ColorAnchorPoint *startPoint);
   virtual ~ColorTransition(){};
-  virtual ColorTransition *makeCopy() = 0;
-  virtual void updateTransition(ColorAnchorPoint &otherPoint, CRGB *firstColorAnchorPoint, uint8_t numSteps) = 0;
-
-  ColorAnchorPoint startPoint;
+  
+  virtual void updateTransition(CRGB * leds, uint8_t numLeds, uint8_t start, uint8_t numSteps) = 0;
+  bool operator<(const ColorTransition &rhs) const { return startPoint->position < rhs.startPoint->position; }
+  
+  ColorAnchorPoint *startPoint;
 };

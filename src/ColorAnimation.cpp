@@ -1,13 +1,11 @@
 
 #include "ColorAnimation.h"
 
-ColorAnimation::ColorAnimation( ColorAnchorPoint * reference, ColorAnchorPoint target, unsigned long startTime, unsigned long endTime)
-  : referencePoint( reference), startPoint( *reference), targetPoint( target), startTime( startTime), endTime( endTime) {
-  reset();
+ColorAnimation::ColorAnimation(ColorAnchorPoint *reference, ColorAnchorPoint start, ColorAnchorPoint target, unsigned long startTime, unsigned long endTime)
+    : referencePoint(reference),
+      startPoint(start),
+      targetPoint(target),
+      startTime(startTime),
+      endTime(endTime)
+{
 }
-
-void ColorAnimation::reset() {
-  didStart = false;
-  didEnd = false;
-}
-
