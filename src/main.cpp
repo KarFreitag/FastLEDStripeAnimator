@@ -6,6 +6,7 @@
 
 #include "ColorTransitionConst.h"
 #include "ColorTransitionLinear.h"
+#include "ColorTransitionHue.h"
 #include "ColorAnimationLinear.h"
 
 const uint8_t NUM_LEDS = 100;
@@ -34,23 +35,13 @@ void setup()
   //FastLED.setTemperature( Tungsten100W);
   //FastLED.setTemperature( OvercastSky);
 
-  ColorAnchorPoint *anchor0 = new ColorAnchorPoint(0, CRGB::Red);
-  ColorAnchorPoint *anchor1 = new ColorAnchorPoint(50, CRGB::Blue);
-  ColorTransition *trans0 = new ColorTransitionLinear(anchor0, anchor1);
-  ColorTransition *trans1 = new ColorTransitionLinear(anchor1, anchor0);
-
-  ColorAnimationLinear* anim0 = new ColorAnimationLinear(anchor0, ColorAnchorPoint(0, CRGB::Red), ColorAnchorPoint(49, CRGB::Red), 0, 2000);
-  ColorAnimationLinear* anim1 = new ColorAnimationLinear(anchor0, ColorAnchorPoint(50, CRGB::Red), ColorAnchorPoint(99, CRGB::Red), 2001, 4000);
-
-  ColorAnimationLinear* anim2 = new ColorAnimationLinear(anchor1, ColorAnchorPoint(50, CRGB::Blue), ColorAnchorPoint(99, CRGB::Blue), 0, 2000);
-  ColorAnimationLinear* anim3 = new ColorAnimationLinear(anchor1, ColorAnchorPoint(0, CRGB::Blue), ColorAnchorPoint(49, CRGB::Blue), 2001, 4000);
-
+  ColorAnchorPoint *anchor0 = new ColorAnchorPoint(25, CRGB::Red);
+  
+  ColorTransition *trans0 = new ColorTransitionHue(anchor0, anchor0, FORWARD_HUES);
   animator.addColorTransition( trans0);
-  animator.addColorTransition( trans1);
+
+  ColorAnimationLinear* anim0 = new ColorAnimationLinear(anchor0, ColorAnchorPoint(0, CRGB::Red), ColorAnchorPoint(99, CRGB::Red), 0, 5000);
   animator.addColorAnimation( anim0);
-  animator.addColorAnimation( anim1);
-  animator.addColorAnimation( anim2);
-  animator.addColorAnimation( anim3);
 
   Serial.println("setup() - done");
 }
