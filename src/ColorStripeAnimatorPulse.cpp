@@ -20,6 +20,10 @@ void ColorStripeAnimatorPulse::setPulseDuration( unsigned long milliSeconds) {
   setupAnimations();
 }
 
+CRGB ColorStripeAnimatorPulse::getPulseColor() {
+  return pulseColor;
+}
+
 void ColorStripeAnimatorPulse::setupAnimations() {
   for (auto transPtr: transitions) {
     delete transPtr->startPoint;

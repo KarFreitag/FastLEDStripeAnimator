@@ -14,6 +14,8 @@ public:
   void setPulseColor(CRGB color);
   void setPulseDuration(unsigned long milliSeconds);
 
+  CRGB getPulseColor();
+
 protected:
   CRGB pulseColor = CRGB::White;
   unsigned long pulseDuration = 2000;
